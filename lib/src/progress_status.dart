@@ -54,9 +54,9 @@ class ProgressStatus extends StatelessWidget {
           thenBuilder: () => Align(
             alignment: _centerTextAlignment,
             child: Text(
-              '0%',
+              _getCenterText,
               style: _centerTextStyle ??
-                  defaultCenterTextStyle.copyWith(fontSize: _radius / 2.6),
+                  defaultCenterTextStyle.copyWith(fontSize: _radius / 3.8),
             ),
           ),
         ),
@@ -76,6 +76,18 @@ class ProgressStatus extends StatelessWidget {
     }
 
     return _radius;
+  }
+
+  String get _getCenterText {
+    if ((_fillValue ?? -1) < 0) {
+      return '0.0%';
+    }
+
+    if (_fillValue > 100) {
+      return '100%';
+    }
+
+    return '${_fillValue.toStringAsFixed(0)}%';
   }
 
   double get _getFillValue {
