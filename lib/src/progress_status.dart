@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_status/src/constants/constants.dart';
 import 'package:flutter_progress_status/src/progress_status_painter.dart';
+import 'package:flutter_progress_status/src/ui_toolkit/conditional_child.dart';
 
 class ProgressStatus extends StatelessWidget {
   final double _radius;
@@ -19,7 +20,7 @@ class ProgressStatus extends StatelessWidget {
       Color fillColor = blueColor,
       Color backgroundColor = greyColor,
       bool isStrokeCapRounded = true,
-      double strokeWidth,
+      double strokeWidth = 5.0,
       bool showCenterText = true,
       TextStyle centerTextStyle,
       Alignment centerTextAlignment = Alignment.center})
@@ -37,18 +38,29 @@ class ProgressStatus extends StatelessWidget {
   Widget build(BuildContext context) {
     final dimension = _getDimension(context);
 
-    return SizedBox(
-      height: dimension,
-      width: dimension,
-      child: CustomPaint(
-        painter: ProgressStatusPainter(),
-        willChange: true,
-        child: Align(
-          alignment: _centerTextAlignment,
-          child: Text(
-            '0%',
-            style: _centerTextStyle ??
-                defaultCenterTextStyle.copyWith(fontSize: _radius / 2.6),
+    return Container(
+      color: Colors.black26,
+      child: SizedBox(
+        height: dimension,
+        width: dimension,
+        child: CustomPaint(
+          painter: ProgressStatusPainter(
+            fillValue: _fillValue,
+            fillColor: _fillColor,
+            backgroundColor: _backgroundColor,
+            isStrokeCapRounded: _isStrokeCapRounded,
+            strokeWidth: _strokeWidth,
+          ),
+          child: ConditionalChild(
+            condition: _showCenterText,
+            thenBuilder: () => Align(
+              alignment: _centerTextAlignment,
+              child: Text(
+                '0%',
+                style: _centerTextStyle ??
+                    defaultCenterTextStyle.copyWith(fontSize: _radius / 2.6),
+              ),
+            ),
           ),
         ),
       ),
