@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 // Colors
-const Color blueColor = Colors.blue;
-const Color greyColor = Colors.grey;
+const blueColor = Colors.blue;
+const greyColor = Colors.grey;
 
 // TextStyle
-const TextStyle defaultCenterTextStyle = TextStyle();
+const defaultCenterTextStyle = TextStyle();
+
+// Duration
+const defaultDuration = Duration(seconds: 3);

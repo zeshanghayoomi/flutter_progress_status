@@ -28,7 +28,7 @@ class ExamplePage extends StatelessWidget {
         child: ProgressStatus(
           radius: 150,
           strokeWidth: 20,
-          fillValue: 100,
+          fillValue: 50,
         ),
       ),
     );

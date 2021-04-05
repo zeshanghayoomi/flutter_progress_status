@@ -3,7 +3,7 @@ import 'package:flutter_progress_status/src/constants/constants.dart';
 import 'package:flutter_progress_status/src/progress_status_painter.dart';
 import 'package:flutter_progress_status/src/ui_toolkit/conditional_child.dart';
 
-class ProgressStatus extends StatelessWidget {
+class ProgressStatus extends StatefulWidget {
   final double _radius;
   final double _fillValue;
   final Color _fillColor;
@@ -35,31 +35,66 @@ class ProgressStatus extends StatelessWidget {
         _centerTextAlignment = centerTextAlignment;
 
   @override
+  _ProgressStatusState createState() => _ProgressStatusState();
+}
+
+class _ProgressStatusState extends State<ProgressStatus>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+  double _tempValue;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      lowerBound: 0.0,
+      upperBound: 100.0,
+      value: _getFillValue,
+      duration: defaultDuration,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    _handleAnimation();
     final dimension = _getDimension(context);
 
     return SizedBox(
       height: dimension,
       width: dimension,
-      child: CustomPaint(
-        painter: ProgressStatusPainter(
-          fillValue: _getFillValue,
-          fillColor: _fillColor,
-          backgroundColor: _backgroundColor,
-          isStrokeCapRounded: _isStrokeCapRounded,
-          strokeWidth: _strokeWidth,
-        ),
-        child: ConditionalChild(
-          condition: _showCenterText,
-          thenBuilder: () => Align(
-            alignment: _centerTextAlignment,
-            child: Text(
-              _getCenterText,
-              style: _centerTextStyle ??
-                  defaultCenterTextStyle.copyWith(fontSize: _radius / 3.8),
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (_, __) {
+          return CustomPaint(
+            painter: ProgressStatusPainter(
+              fillValue: _controller.value,
+              fillColor: widget._fillColor,
+              backgroundColor: widget._backgroundColor,
+              isStrokeCapRounded: widget._isStrokeCapRounded,
+              strokeWidth: widget._strokeWidth,
             ),
-          ),
-        ),
+            child: ConditionalChild(
+              condition: widget._showCenterText,
+              thenBuilder: () => Align(
+                alignment: widget._centerTextAlignment,
+                child: Text(
+                  _getCenterText,
+                  style: widget._centerTextStyle ??
+                      defaultCenterTextStyle.copyWith(
+                          fontSize: widget._radius / 3.8),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -67,38 +102,38 @@ class ProgressStatus extends StatelessWidget {
   double _getDimension(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
 
-    if (_radius < 30.0) {
+    if (widget._radius < 30.0) {
       return 30.0;
     }
 
-    if (_radius > deviceWidth) {
+    if (widget._radius > deviceWidth) {
       return deviceWidth;
     }
 
-    return _radius;
+    return widget._radius;
   }
 
   String get _getCenterText {
-    if ((_fillValue ?? -1) < 0) {
-      return '0.0%';
-    }
-
-    if (_fillValue > 100) {
-      return '100%';
-    }
-
-    return '${_fillValue.toStringAsFixed(0)}%';
+    return '${_controller.value.toStringAsFixed(0)}%';
   }
 
   double get _getFillValue {
-    if ((_fillValue ?? -1) < 0) {
+    if ((widget._fillValue ?? -1) < 0) {
       return 0.0;
     }
 
-    if (_fillValue > 100) {
+    if (widget._fillValue > 100) {
       return 100.0;
     }
 
-    return _fillValue;
+    return widget._fillValue;
+  }
+
+  void _handleAnimation() {
+    _controller.animateTo(
+      _getFillValue,
+      duration: defaultDuration,
+      curve: Curves.fastOutSlowIn,
+    );
   }
 }
