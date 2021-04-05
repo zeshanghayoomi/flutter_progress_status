@@ -13,6 +13,8 @@ class ProgressStatus extends StatefulWidget {
   final bool _showCenterText;
   final TextStyle _centerTextStyle;
   final Alignment _centerTextAlignment;
+  final Duration _animationDuration;
+  final Curve _animationCurve;
 
   const ProgressStatus(
       {double radius = 15.0,
@@ -23,7 +25,9 @@ class ProgressStatus extends StatefulWidget {
       double strokeWidth = 5.0,
       bool showCenterText = true,
       TextStyle centerTextStyle,
-      Alignment centerTextAlignment = Alignment.center})
+      Alignment centerTextAlignment = Alignment.center,
+      Duration animationDuration = defaultDuration,
+      Curve animationCurve = Curves.fastOutSlowIn})
       : _radius = radius * 2,
         _fillValue = fillValue,
         _fillColor = fillColor,
@@ -32,7 +36,9 @@ class ProgressStatus extends StatefulWidget {
         _strokeWidth = strokeWidth,
         _showCenterText = showCenterText,
         _centerTextStyle = centerTextStyle,
-        _centerTextAlignment = centerTextAlignment;
+        _centerTextAlignment = centerTextAlignment,
+        _animationDuration = animationDuration,
+        _animationCurve = animationCurve;
 
   @override
   _ProgressStatusState createState() => _ProgressStatusState();
@@ -137,8 +143,8 @@ class _ProgressStatusState extends State<ProgressStatus>
     if (_controller.value != _getFillValue) {
       _controller.animateTo(
         _getFillValue,
-        duration: defaultDuration,
-        curve: Curves.fastOutSlowIn,
+        duration: widget._animationDuration,
+        curve: widget._animationCurve,
       );
     }
   }
