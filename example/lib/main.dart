@@ -25,7 +25,9 @@ class ExamplePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ProgressStatus(),
+        child: ProgressStatus(
+          radius: 15,
+        ),
       ),
     );
   }
