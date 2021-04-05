@@ -26,7 +26,7 @@ class ProgressStatusPainter extends CustomPainter {
     // draw background circle
     canvas.drawCircle(
       Offset(size.width / 2, size.height / 2),
-      (size.height - 5) / 2,
+      (size.height - _strokeWidth) / 2,
       bgPaint,
     );
   }
