@@ -41,7 +41,6 @@ class ProgressStatus extends StatefulWidget {
 class _ProgressStatusState extends State<ProgressStatus>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
-  double _tempValue;
 
   @override
   void initState() {
@@ -86,10 +85,8 @@ class _ProgressStatusState extends State<ProgressStatus>
               thenBuilder: () => Align(
                 alignment: widget._centerTextAlignment,
                 child: Text(
-                  _getCenterText,
-                  style: widget._centerTextStyle ??
-                      defaultCenterTextStyle.copyWith(
-                          fontSize: widget._radius / 3.8),
+                  _getCenterCircleText,
+                  style: _getCenterCircleTextStyle,
                 ),
               ),
             ),
@@ -113,10 +110,6 @@ class _ProgressStatusState extends State<ProgressStatus>
     return widget._radius;
   }
 
-  String get _getCenterText {
-    return '${_controller.value.toStringAsFixed(0)}%';
-  }
-
   double get _getFillValue {
     if ((widget._fillValue ?? -1) < 0) {
       return 0.0;
@@ -129,11 +122,24 @@ class _ProgressStatusState extends State<ProgressStatus>
     return widget._fillValue;
   }
 
+  String get _getCenterCircleText {
+    return '${_controller.value.toStringAsFixed(0)}%';
+  }
+
+  TextStyle get _getCenterCircleTextStyle {
+    return widget._centerTextStyle ??
+        defaultCenterTextStyle.copyWith(
+          fontSize: _getDimension(context) / 3.8,
+        );
+  }
+
   void _handleAnimation() {
-    _controller.animateTo(
-      _getFillValue,
-      duration: defaultDuration,
-      curve: Curves.fastOutSlowIn,
-    );
+    if (_controller.value != _getFillValue) {
+      _controller.animateTo(
+        _getFillValue,
+        duration: defaultDuration,
+        curve: Curves.fastOutSlowIn,
+      );
+    }
   }
 }

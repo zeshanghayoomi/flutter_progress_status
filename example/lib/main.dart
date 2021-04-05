@@ -6,7 +6,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,7 +27,7 @@ class ExamplePage extends StatelessWidget {
         child: ProgressStatus(
           radius: 150,
           strokeWidth: 20,
-          fillValue: 50,
+          fillValue: 20,
         ),
       ),
     );

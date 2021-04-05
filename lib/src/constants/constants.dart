@@ -8,4 +8,4 @@ const greyColor = Colors.grey;
 const defaultCenterTextStyle = TextStyle();
 
 // Duration
-const defaultDuration = Duration(seconds: 3);
+const defaultDuration = Duration(seconds: 1);
