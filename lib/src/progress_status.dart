@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_status/src/constants/constants.dart';
+import 'package:flutter_progress_status/src/progress_status_painter.dart';
 
 class ProgressStatus extends StatelessWidget {
   final double _radius;
@@ -34,18 +35,15 @@ class ProgressStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.brown,
-      child: SizedBox(
-        height: _radius,
-        width: _radius,
-        child: Align(
-          alignment: _centerTextAlignment,
-          child: Text(
-            '0%',
-            style: _centerTextStyle ??
-                defaultCenterTextStyle.copyWith(fontSize: _radius / 2.6),
-          ),
+    return CustomPaint(
+      painter: ProgressStatusPainter(),
+      willChange: true,
+      child: Align(
+        alignment: _centerTextAlignment,
+        child: Text(
+          '0%',
+          style: _centerTextStyle ??
+              defaultCenterTextStyle.copyWith(fontSize: _radius / 2.6),
         ),
       ),
     );
