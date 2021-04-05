@@ -35,17 +35,37 @@ class ProgressStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: ProgressStatusPainter(),
-      willChange: true,
-      child: Align(
-        alignment: _centerTextAlignment,
-        child: Text(
-          '0%',
-          style: _centerTextStyle ??
-              defaultCenterTextStyle.copyWith(fontSize: _radius / 2.6),
+    final dimension = _getDimension(context);
+
+    return SizedBox(
+      height: dimension,
+      width: dimension,
+      child: CustomPaint(
+        painter: ProgressStatusPainter(),
+        willChange: true,
+        child: Align(
+          alignment: _centerTextAlignment,
+          child: Text(
+            '0%',
+            style: _centerTextStyle ??
+                defaultCenterTextStyle.copyWith(fontSize: _radius / 2.6),
+          ),
         ),
       ),
     );
+  }
+
+  double _getDimension(BuildContext context) {
+    final deviceWidth = MediaQuery.of(context).size.width;
+
+    if (_radius < 30.0) {
+      return 30.0;
+    }
+
+    if (_radius > deviceWidth) {
+      return deviceWidth;
+    }
+
+    return _radius;
   }
 }
