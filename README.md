@@ -14,6 +14,12 @@ ProgressStatus(
 
 ```
 
+<img src="https://raw.githubusercontent.com/zeshanghayoomi/flutter_progress_status/master/repo_assets/simulator1.gif" width="300" height="600">
+
+<br>
+
+<img src="https://raw.githubusercontent.com/zeshanghayoomi/flutter_progress_status/master/repo_assets/simulator2.gif" width="300" height="600">
+
 ## Properties
 
 * ***radius***<br>Use this to set the size of the circle default minimum = 15.0 and default maximum = deviceWidth will be applied.
