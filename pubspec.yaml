@@ -1,8 +1,8 @@
 name: flutter_progress_status
-description: A simple widget that can be used to display progress status of a task
+description: A simple widget that can be used to display progress status of a task, use the provided properties to customise the way you like.
 version: 0.0.1
-author:
-homepage:
+author: Zeshan Ghayoomi <ghayoomi12@gmail.com>
+homepage: https://github.com/zeshanghayoomi/flutter_progress_status
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
