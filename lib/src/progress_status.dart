@@ -38,28 +38,25 @@ class ProgressStatus extends StatelessWidget {
   Widget build(BuildContext context) {
     final dimension = _getDimension(context);
 
-    return Container(
-      color: Colors.black26,
-      child: SizedBox(
-        height: dimension,
-        width: dimension,
-        child: CustomPaint(
-          painter: ProgressStatusPainter(
-            fillValue: _fillValue,
-            fillColor: _fillColor,
-            backgroundColor: _backgroundColor,
-            isStrokeCapRounded: _isStrokeCapRounded,
-            strokeWidth: _strokeWidth,
-          ),
-          child: ConditionalChild(
-            condition: _showCenterText,
-            thenBuilder: () => Align(
-              alignment: _centerTextAlignment,
-              child: Text(
-                '0%',
-                style: _centerTextStyle ??
-                    defaultCenterTextStyle.copyWith(fontSize: _radius / 2.6),
-              ),
+    return SizedBox(
+      height: dimension,
+      width: dimension,
+      child: CustomPaint(
+        painter: ProgressStatusPainter(
+          fillValue: _getFillValue,
+          fillColor: _fillColor,
+          backgroundColor: _backgroundColor,
+          isStrokeCapRounded: _isStrokeCapRounded,
+          strokeWidth: _strokeWidth,
+        ),
+        child: ConditionalChild(
+          condition: _showCenterText,
+          thenBuilder: () => Align(
+            alignment: _centerTextAlignment,
+            child: Text(
+              '0%',
+              style: _centerTextStyle ??
+                  defaultCenterTextStyle.copyWith(fontSize: _radius / 2.6),
             ),
           ),
         ),
@@ -79,5 +76,17 @@ class ProgressStatus extends StatelessWidget {
     }
 
     return _radius;
+  }
+
+  double get _getFillValue {
+    if ((_fillValue ?? -1) < 0) {
+      return 0.0;
+    }
+
+    if (_fillValue > 100) {
+      return 100.0;
+    }
+
+    return _fillValue;
   }
 }
