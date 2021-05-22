@@ -11,7 +11,7 @@ class ProgressStatus extends StatefulWidget {
   final bool _isStrokeCapRounded;
   final double _strokeWidth;
   final bool _showCenterText;
-  final TextStyle _centerTextStyle;
+  final TextStyle? _centerTextStyle;
   final Alignment _centerTextAlignment;
   final Duration _animationDuration;
   final Curve _animationCurve;
@@ -24,7 +24,7 @@ class ProgressStatus extends StatefulWidget {
       bool isStrokeCapRounded = true,
       double strokeWidth = 5.0,
       bool showCenterText = true,
-      TextStyle centerTextStyle,
+      TextStyle? centerTextStyle,
       Alignment centerTextAlignment = Alignment.center,
       Duration animationDuration = defaultDuration,
       Curve animationCurve = Curves.fastOutSlowIn})
@@ -46,7 +46,7 @@ class ProgressStatus extends StatefulWidget {
 
 class _ProgressStatusState extends State<ProgressStatus>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   @override
   void initState() {
@@ -117,7 +117,7 @@ class _ProgressStatusState extends State<ProgressStatus>
   }
 
   double get _getFillValue {
-    if ((widget._fillValue ?? -1) < 0) {
+    if (widget._fillValue <= 0) {
       return 0.0;
     }
 

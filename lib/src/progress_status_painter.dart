@@ -10,11 +10,11 @@ class ProgressStatusPainter extends CustomPainter {
   final double _strokeWidth;
 
   const ProgressStatusPainter(
-      {@required double fillValue,
-      @required Color fillColor,
-      @required Color backgroundColor,
-      @required bool isStrokeCapRounded,
-      @required double strokeWidth})
+      {required double fillValue,
+      required Color fillColor,
+      required Color backgroundColor,
+      required bool isStrokeCapRounded,
+      required double strokeWidth})
       : _fillValue = fillValue,
         _fillColor = fillColor,
         _backgroundColor = backgroundColor,
