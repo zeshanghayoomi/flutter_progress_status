@@ -1,3 +1,7 @@
+## [0.0.3] - 14 / 12 / 2022
+
+* Updates example app
+
 ## [0.0.2] - 22 / 05 / 2021
 
 * Migrates to null safety
