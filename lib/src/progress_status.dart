@@ -44,8 +44,7 @@ class ProgressStatus extends StatefulWidget {
   _ProgressStatusState createState() => _ProgressStatusState();
 }
 
-class _ProgressStatusState extends State<ProgressStatus>
-    with SingleTickerProviderStateMixin {
+class _ProgressStatusState extends State<ProgressStatus> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
