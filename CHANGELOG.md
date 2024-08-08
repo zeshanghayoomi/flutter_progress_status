@@ -1,3 +1,7 @@
+## [0.0.4] - 09 / 09 / 2024
+
+* Updates example app
+
 ## [0.0.3] - 14 / 12 / 2022
 
 * Updates example app
