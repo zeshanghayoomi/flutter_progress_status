@@ -10,9 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Progress Status Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       debugShowCheckedModeBanner: false,
       home: ExamplePage(),
     );
@@ -25,9 +23,11 @@ class ExamplePage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: ProgressStatus(
-          radius: 150,
-          strokeWidth: 20,
-          fillValue: 25,
+          radius: 40,
+          strokeWidth: 10,
+          fillValue: 10,
+          backgroundColor: Colors.red,
+          fillColor: Colors.green,
         ),
       ),
     );
