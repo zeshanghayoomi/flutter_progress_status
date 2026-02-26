@@ -1,3 +1,7 @@
+## [0.0.4] - 26 / 02 / 2026
+
+* Updates dependencies
+
 ## [0.0.4] - 09 / 09 / 2024
 
 * Updates example app
